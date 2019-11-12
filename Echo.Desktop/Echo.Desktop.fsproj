@@ -6,15 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <MonoGameContentReference Include="..\Echo.Common\Content\Content.Desktop.mgcb" Link="Content\Content.Desktop.mgcb" />
+    <Compile Include="ContentLoader.fs" />
     <Compile Include="Program.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Content\Content.mgcb" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <MonoGameContentReference Include="Content\Content.mgcb" Visible="true" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +18,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Echo.Common\Echo.Common.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Content\" />
   </ItemGroup>
 
 </Project>
