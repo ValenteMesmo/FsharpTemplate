@@ -1,4 +1,4 @@
-﻿namespace MGNamespace
+﻿namespace Echo.Common
 
 open Microsoft.Xna.Framework.Content
 open System.Collections.Generic

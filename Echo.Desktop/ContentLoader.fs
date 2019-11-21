@@ -1,9 +1,10 @@
-﻿namespace MGNamespace
+﻿namespace Echo.Desktop
 
 open Microsoft.Xna.Framework.Content
 open System.Collections.Generic
 open Microsoft.Xna.Framework.Graphics
 open System.IO
+open Echo.Common
 
 type ContetLoader () =
     interface IContentLoader with

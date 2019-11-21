@@ -1,4 +1,4 @@
-namespace MGNamespace
+namespace Echo.Common
 
 open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Graphics
@@ -10,8 +10,11 @@ type Game1 (contextLoader : IContentLoader) as this =
     let graphics = new GraphicsDeviceManager(this)
     let mutable spriteBatch = Unchecked.defaultof<_>
     let mutable textures = Unchecked.defaultof<_>
+    let world = World()
 
     do
+        world.AddObject(Ballon.Create())
+        world.AddObject(Ballon.Create())
         this.Content.RootDirectory <- "Content"
         this.IsMouseVisible <- true
 
@@ -21,8 +24,6 @@ type Game1 (contextLoader : IContentLoader) as this =
     override this.LoadContent() =
         spriteBatch <- new SpriteBatch(this.GraphicsDevice)
         textures <- contextLoader.LoadTextures(this.Content)
-        //textures <- Dictionary<string,Texture2D>()
-        //textures.Add("Block", this.Content.Load<Texture2D>("Textures/Block"))
  
     override this.Update (gameTime) =
         if 
@@ -30,6 +31,8 @@ type Game1 (contextLoader : IContentLoader) as this =
             || Keyboard.GetState().IsKeyDown(Keys.Escape)
         then
             this.Exit()
+
+        world.update() 
     
         base.Update(gameTime)
  
@@ -38,16 +41,13 @@ type Game1 (contextLoader : IContentLoader) as this =
         
         spriteBatch.Begin()
 
-        spriteBatch.Draw(
-            textures.["Block"]
-            , Rectangle(0, 0, 100, 100)
-            , Color.White
-        )
-        spriteBatch.Draw(
-            textures.["Block"]
-            , Rectangle(100, 100, 100, 100)
-            , Color.White
-        )
+        world.GetObjects() 
+        |> Seq.iter (fun f -> 
+            spriteBatch.Draw(
+                textures.["Block"]
+                , Rectangle(f.X, f.Y, 100, 100)
+                , Color.White
+            ))
 
         spriteBatch.End()
         

@@ -95,10 +95,6 @@
       <Project>{65335bea-560b-4c7a-9b43-2e7ac56065d4}</Project>
       <Name>Echo.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Echo.Core\Echo.Core.fsproj">
-      <Project>{49e83e9a-f85a-4bea-b1af-929115bb1c7e}</Project>
-      <Name>Echo.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

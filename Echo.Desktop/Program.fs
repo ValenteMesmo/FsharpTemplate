@@ -1,4 +1,5 @@
-namespace MGNamespace
+namespace Echo.Desktop
+open Echo.Common
 
 module Program =
 

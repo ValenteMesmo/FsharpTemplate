@@ -2,7 +2,7 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Views;
-using MGNamespace;
+using Echo.Common;
 
 namespace Echo.Android
 {
