@@ -13,8 +13,9 @@ type Game1 (contextLoader : IContentLoader) as this =
     let world = World()
 
     do
-        world.AddObject(Ballon.Create())
-        world.AddObject(Ballon.Create())
+        let balloonFactory = BalloonFactory.Create(world.AddObject)
+        balloonFactory.Y <- -50
+        world.AddObject(balloonFactory)
         this.Content.RootDirectory <- "Content"
         this.IsMouseVisible <- true
 

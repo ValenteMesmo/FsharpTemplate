@@ -12,8 +12,9 @@
     </None>
     <Compile Include="GameObject.fs" />
     <Compile Include="World.fs" />
-    <Compile Include="Ballon.fs" />
     <Compile Include="IContentLoader.fs" />
+    <Compile Include="Balloon.fs" />
+    <Compile Include="BalloonFactory.fs" />
     <Compile Include="Game1.fs" />
   </ItemGroup>
 

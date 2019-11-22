@@ -1,6 +1,6 @@
 ﻿namespace Echo.Common
 
-module Ballon =
+module Balloon =
     let moveUp (obj : GameObject) =        
         obj.Y <- obj.Y - 1
         obj

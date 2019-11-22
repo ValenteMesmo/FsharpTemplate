@@ -12,7 +12,7 @@ type World() =
         ()
 
     member this.update() =
-        for obj in GameObjects do
+        for obj in GameObjects.ToArray() do
             obj.Update()
             |> ignore
         ()
