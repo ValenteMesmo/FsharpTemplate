@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Camera.fs" />
     <Content Include="Content\Textures\Block.bmp" />
     <None Include="Content\Content.Android.mgcb" />
     <None Include="Content\Content.Desktop.mgcb">

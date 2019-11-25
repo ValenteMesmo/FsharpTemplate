@@ -13,7 +13,7 @@ module BalloonFactory =
                 let ballon = Create()
                 ballon.Y <- 500
                 ballon.X <- 200
-                addToWorld(ballon)
+                addToWorld ballon
             obj
 
-        GameObject(update)
+        GameObject update

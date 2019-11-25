@@ -52,4 +52,4 @@ type Game1 (contextLoader : IContentLoader) as this =
 
         spriteBatch.End()
         
-        base.Draw(gameTime)
+        base.Draw gameTime
