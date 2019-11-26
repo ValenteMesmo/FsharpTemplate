@@ -10,6 +10,7 @@ type Game1 (contextLoader : IContentLoader) as this =
     let graphics = new GraphicsDeviceManager(this)
     let mutable spriteBatch = Unchecked.defaultof<_>
     let mutable textures = Unchecked.defaultof<_>
+    let camera = Camera()
     let world = World()
 
     do
@@ -34,13 +35,21 @@ type Game1 (contextLoader : IContentLoader) as this =
             this.Exit()
 
         world.update() 
-    
+        camera.UpdateCamera(this.GraphicsDevice.Viewport)
         base.Update(gameTime)
  
     override this.Draw (gameTime) =
         this.GraphicsDevice.Clear Color.CornflowerBlue
         
-        spriteBatch.Begin()
+        spriteBatch.Begin(
+            SpriteSortMode.Deferred,
+            BlendState.AlphaBlend,
+            null,
+            null,
+            null,
+            null,
+            camera.GetTransform()
+        )
 
         world.GetObjects() 
         |> Seq.iter (fun f -> 

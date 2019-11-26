@@ -2,13 +2,14 @@
 
 open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Graphics
+open System
 
-type Camera(viewport: Viewport) =
-    let mutable zoom = 0.0f
+type Camera() =
+    let mutable zoom = 0.5f
     let mutable position = Vector2.Zero
     let mutable visibleArea = Rectangle.Empty
     let mutable transform = Matrix()
-    let mutable bounds =  viewport.Bounds
+    let mutable bounds =  Rectangle.Empty
     let defaultZoom = 0.050f
 
     let updateVisibleArea() =
@@ -38,7 +39,7 @@ type Camera(viewport: Viewport) =
         transform <-
             Matrix.CreateTranslation(Vector3(-position.X, -position.Y, 0.0f))
             * Matrix.CreateScale(zoom)
-            * Matrix.CreateTranslation(new Vector3(float32 bounds.Width * 0.5f, float32 bounds.Height * 0.5f, 0.0f))
+            * Matrix.CreateTranslation(new Vector3((float32 bounds.Width) * 0.5f, (float32 bounds.Height) * 0.5f, 0.0f))
 
         updateVisibleArea()    
 
@@ -66,3 +67,6 @@ type Camera(viewport: Viewport) =
     member this.UpdateCamera(viewport: Viewport) =
         bounds <- viewport.Bounds
         updateMatrix()
+
+    member this.GetTransform(): Nullable<Matrix> =
+        Nullable transform
