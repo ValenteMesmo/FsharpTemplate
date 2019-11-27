@@ -11,7 +11,12 @@ module Balloon =
         obj
 
     let Create() =
-        GameObject(
-            moveUp
-            , destroyWhenOffScreen
-        )
+        let obj = 
+            GameObject
+                (
+                    moveUp
+                    , destroyWhenOffScreen
+                )
+        obj.Width <- GameConstants.BalloonSize
+        obj.Height <- GameConstants.BalloonSize
+        obj

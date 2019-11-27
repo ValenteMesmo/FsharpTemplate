@@ -5,7 +5,8 @@ open System
 type GameObject([<ParamArray>] updates : (GameObject -> GameObject)[]) =
     let mutable x = 0
     let mutable y = 0
-
+    let mutable width = 0
+    let mutable height = 0
     let mutable destroyed = false
 
     member this.X
@@ -15,6 +16,14 @@ type GameObject([<ParamArray>] updates : (GameObject -> GameObject)[]) =
     member this.Y
         with get () = y
         and set (value) = y <- value
+
+    member this.Width
+        with get () = width
+        and set (value) = width <- value
+
+    member this.Height
+        with get () = height
+        and set (value) = height <- value
 
     member this.Update() =
         for update in updates do

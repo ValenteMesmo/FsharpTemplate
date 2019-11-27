@@ -50,6 +50,11 @@ type Camera() =
         if (zoom > 0.5f) then
             zoom <- 0.5f
 
+            
+    member this.Position
+        with get () = position
+        and set (value) = position <- value
+
     member this.AdjustZoom(zoomamount : float32) =
         zoom <- zoom  + zoomamount
         limitZoom()

@@ -8,6 +8,6 @@ module Program =
 
     [<EntryPoint>]
     let main argv =
-        use game = new Game1(ContetLoader())
+        use game = new Game1(ContetLoader(), false)
         game.Run()
         0
