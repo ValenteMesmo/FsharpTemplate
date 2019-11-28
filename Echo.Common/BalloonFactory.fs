@@ -1,23 +1,22 @@
 ﻿namespace Echo.Common
 
+open System
+
 module BalloonFactory = 
     open Balloon
 
     let Create(addToWorld, getTouchCollection) =
         let mutable counter = 99
-        let mutable change = 0
+        let random = Random(171)
+
         let update obj =
             counter <- counter + 1
-            if counter > 100 then
+            if counter > GameConstants.BalloonSize / Balloon.balloonSpeed then
                 counter <- 0
                 let ballon = Create(getTouchCollection)
                 ballon.Y <- 700
-                ballon.X <- change * GameConstants.BalloonSize
+                ballon.X <- random.Next(0,6) * GameConstants.BalloonSize
                 addToWorld ballon
-
-                change <- change + 1
-                if change > 6 then
-                    change <- 0
             obj
 
         GameObject update
