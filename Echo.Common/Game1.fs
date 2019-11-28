@@ -12,10 +12,11 @@ type Game1 (contextLoader : IContentLoader, RuningOnAndroid: bool) as this =
     let mutable textures = Unchecked.defaultof<_>
     let camera = Camera()
     let world = World()
+    let touchCollection = TouchController(camera)
 
     do
         camera.Position <- Vector2(1179.0f, 0.0f)
-        let balloonFactory = BalloonFactory.Create(world.AddObject)
+        let balloonFactory = BalloonFactory.Create(world.AddObject, touchCollection.GetTouches)
         balloonFactory.Y <- -50
         world.AddObject(balloonFactory)
         this.Content.RootDirectory <- "Content"
@@ -47,6 +48,7 @@ type Game1 (contextLoader : IContentLoader, RuningOnAndroid: bool) as this =
         then
             this.Exit()
 
+        touchCollection.Update()
         world.update() 
         camera.Update(this.GraphicsDevice)
         base.Update(gameTime)

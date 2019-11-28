@@ -3,14 +3,14 @@
 module BalloonFactory = 
     open Balloon
 
-    let Create(addToWorld) =
+    let Create(addToWorld, getTouchCollection) =
         let mutable counter = 99
         let mutable change = 0
         let update obj =
             counter <- counter + 1
             if counter > 100 then
                 counter <- 0
-                let ballon = Create()
+                let ballon = Create(getTouchCollection)
                 ballon.Y <- 700
                 ballon.X <- change * GameConstants.BalloonSize
                 addToWorld ballon

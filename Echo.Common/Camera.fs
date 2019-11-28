@@ -10,7 +10,6 @@ type Camera() =
     let mutable position = Vector2.Zero
     let mutable rotation = 0.0f
     let mutable transform = Matrix()
-
     
     member this.Position
         with get () = position
@@ -18,6 +17,13 @@ type Camera() =
 
     member this.Transform
         with get () = Nullable transform
+
+    member this.GetWorldPosition(position2: Vector2): Vector2 =
+        let a = Vector2.Transform(position2, Matrix.Invert(transform))
+        a
+
+    member this.GetScreenPosition(position2: Vector2): Vector2 =
+        Vector2.Transform(position2, transform)
    
     member this.Update(graphicsDevice: GraphicsDevice) =
         let widthDiff = float32 graphicsDevice.Viewport.Width / GameConstants.ScreenWidth

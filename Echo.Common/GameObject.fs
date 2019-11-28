@@ -30,5 +30,8 @@ type GameObject([<ParamArray>] updates : (GameObject -> GameObject)[]) =
             update (this) |> ignore
 
     member this.Destroy() =
-        destroyed <- true;
+        destroyed <- true
+
+    member this.Destroyed
+        with get () = destroyed
 

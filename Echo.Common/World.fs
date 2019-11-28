@@ -13,6 +13,8 @@ type World() =
 
     member this.update() =
         for obj in GameObjects.ToArray() do
-            obj.Update()
-            |> ignore
+            if obj.Destroyed then
+                GameObjects.Remove(obj) |> ignore
+            else
+                obj.Update() |> ignore
         ()

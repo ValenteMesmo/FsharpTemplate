@@ -7,6 +7,7 @@
   <ItemGroup>
     <Compile Include="GameConstants.fs" />
     <Compile Include="Camera.fs" />
+    <Compile Include="TouchController.fs" />
     <Content Include="Content\Textures\Block.bmp" />
     <None Include="Content\Content.Android.mgcb" />
     <None Include="Content\Content.Desktop.mgcb">
