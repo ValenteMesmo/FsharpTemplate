@@ -14,7 +14,7 @@ type Game1 (contextLoader : IContentLoader, RuningOnAndroid: bool) as this =
     let world = World()
 
     do
-        camera.Position <- Vector2(1180.0f, 0.0f)
+        camera.Position <- Vector2(1179.0f, 0.0f)
         let balloonFactory = BalloonFactory.Create(world.AddObject)
         balloonFactory.Y <- -50
         world.AddObject(balloonFactory)
@@ -30,8 +30,8 @@ type Game1 (contextLoader : IContentLoader, RuningOnAndroid: bool) as this =
             graphics.PreferredBackBufferHeight <- this.GraphicsDevice.DisplayMode.Height
         else
             graphics.IsFullScreen <- false        
-            graphics.PreferredBackBufferWidth <- 1176
-            graphics.PreferredBackBufferHeight <- 664
+            graphics.PreferredBackBufferWidth <- int GameConstants.ScreenWidth
+            graphics.PreferredBackBufferHeight <- int GameConstants.ScreenHeight
 
         graphics.ApplyChanges()
         ()
@@ -48,7 +48,7 @@ type Game1 (contextLoader : IContentLoader, RuningOnAndroid: bool) as this =
             this.Exit()
 
         world.update() 
-        camera.UpdateCamera(this.GraphicsDevice.Viewport)
+        camera.Update(this.GraphicsDevice)
         base.Update(gameTime)
  
     override this.Draw (gameTime) =
@@ -61,7 +61,7 @@ type Game1 (contextLoader : IContentLoader, RuningOnAndroid: bool) as this =
             null,
             null,
             null,
-            camera.GetTransform()
+            camera.Transform
         )
 
         world.GetObjects() 

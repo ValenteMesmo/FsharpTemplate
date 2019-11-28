@@ -40,7 +40,7 @@ namespace Echo.Android
                 );
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.P)
-                Window.Attributes.LayoutInDisplayCutoutMode = LayoutInDisplayCutoutMode.ShortEdges;
+            Window.Attributes.LayoutInDisplayCutoutMode = LayoutInDisplayCutoutMode.ShortEdges;
 
             SetContentView(view);
         }
