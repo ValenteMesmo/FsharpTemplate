@@ -10,9 +10,11 @@ type Game1 (contextLoader : IContentLoader, RuningOnAndroid: bool) as this =
     let graphics = new GraphicsDeviceManager(this)
     let mutable spriteBatch = Unchecked.defaultof<_>
     let mutable textures = Unchecked.defaultof<_>
+    let mutable font = Unchecked.defaultof<_>
     let camera = Camera()
     let world = World()
     let touchCollection = TouchController(camera)
+    let FramerateCounter = FramerateCounter()
 
     do
         camera.Position <- Vector2(1179.0f, 0.0f)
@@ -31,17 +33,18 @@ type Game1 (contextLoader : IContentLoader, RuningOnAndroid: bool) as this =
             graphics.PreferredBackBufferHeight <- this.GraphicsDevice.DisplayMode.Height
         else
             graphics.IsFullScreen <- false        
+            graphics.SynchronizeWithVerticalRetrace <- true
             graphics.PreferredBackBufferWidth <- int GameConstants.ScreenWidth
             graphics.PreferredBackBufferHeight <- int GameConstants.ScreenHeight
-
         graphics.ApplyChanges()
         ()
 
     override this.LoadContent() =
         spriteBatch <- new SpriteBatch(this.GraphicsDevice)
         textures <- contextLoader.LoadTextures(this.Content)
+        font <- this.Content.Load<SpriteFont>("Font")
  
-    override this.Update (gameTime) =
+    override this.Update(gameTime) =
         if
             GamePad.GetState(PlayerIndex.One).Buttons.Back = ButtonState.Pressed
             || Keyboard.GetState().IsKeyDown(Keys.Escape)
@@ -49,11 +52,13 @@ type Game1 (contextLoader : IContentLoader, RuningOnAndroid: bool) as this =
             this.Exit()
 
         touchCollection.Update()
-        world.update() 
+        world.update()
         camera.Update(this.GraphicsDevice)
+
+        FramerateCounter.Update(float32 gameTime.ElapsedGameTime.TotalSeconds)
         base.Update(gameTime)
  
-    override this.Draw (gameTime) =
+    override this.Draw(gameTime) =
         this.GraphicsDevice.Clear Color.CornflowerBlue
         
         spriteBatch.Begin(
@@ -67,13 +72,17 @@ type Game1 (contextLoader : IContentLoader, RuningOnAndroid: bool) as this =
         )
 
         world.GetObjects() 
-        |> Seq.iter (fun f -> 
+        |> Seq.iter (fun f ->
             spriteBatch.Draw(
                 textures.["Block"]
                 , Rectangle(f.X, f.Y, f.Width, f.Height)
                 , Color.White
             ))
 
+        spriteBatch.End()
+        
+        spriteBatch.Begin()
+        spriteBatch.DrawString(font, FramerateCounter.AverageFramesPerSecond.ToString(), Vector2(100.0f, 100.0f), Color.White)
         spriteBatch.End()
         
         base.Draw gameTime
