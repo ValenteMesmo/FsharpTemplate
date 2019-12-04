@@ -7,12 +7,14 @@
 
     type TouchController(Camera: Camera) =
         let touches = List<Vector2>()
+
         member this.Update() =
             touches.Clear()
 
             let touchCollection = TouchPanel.GetState()
             for touch in touchCollection do
-                touches.Add(Camera.GetWorldPosition(touch.Position))
+                if touch.State = TouchLocationState.Pressed then
+                    touches.Add(Camera.GetWorldPosition(touch.Position))
             
             let mouse = Mouse.GetState()
             if mouse.LeftButton = ButtonState.Pressed then
