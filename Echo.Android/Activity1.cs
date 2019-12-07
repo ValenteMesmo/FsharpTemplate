@@ -19,10 +19,13 @@ namespace Echo.Android
         private Game1 game;
 
         protected override void OnCreate(Bundle bundle)
-        {
+        {            
             base.OnCreate(bundle);
             game = new Game1(new ContentLoader(Assets), true);
             SetViewFullScreen();
+
+            StartLockTask();
+
             game.Run();
         }
 
@@ -40,7 +43,7 @@ namespace Echo.Android
                 );
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.P)
-            Window.Attributes.LayoutInDisplayCutoutMode = LayoutInDisplayCutoutMode.ShortEdges;
+                Window.Attributes.LayoutInDisplayCutoutMode = LayoutInDisplayCutoutMode.ShortEdges;
 
             SetContentView(view);
         }
@@ -51,11 +54,16 @@ namespace Echo.Android
             SetViewFullScreen();
         }
 
+        protected override void OnPause()
+        {
+            base.OnPause();
+        }
+
         protected override void OnRestart()
         {
             base.OnRestart();
             SetViewFullScreen();
         }
-    }
+    }    
 }
 

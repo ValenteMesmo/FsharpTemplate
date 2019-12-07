@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="FramerateCounter.fs" />
     <Compile Include="GameConstants.fs" />
+    <Compile Include="FramerateCounter.fs" />
     <Compile Include="Camera.fs" />
     <Compile Include="TouchController.fs" />
     <Content Include="Content\Textures\Block.bmp" />
