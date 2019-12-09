@@ -1,4 +1,5 @@
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Views;
@@ -19,12 +20,10 @@ namespace Echo.Android
         private Game1 game;
 
         protected override void OnCreate(Bundle bundle)
-        {            
+        {
             base.OnCreate(bundle);
             game = new Game1(new ContentLoader(Assets), true);
-            SetViewFullScreen();
-
-            StartLockTask();
+            //SetViewFullScreen();
 
             game.Run();
         }
@@ -52,18 +51,45 @@ namespace Echo.Android
         {
             base.OnResume();
             SetViewFullScreen();
+            if (!isAppInLockTaskMode())
+                //21
+                StartLockTask();
         }
 
         protected override void OnPause()
         {
+            if (isAppInLockTaskMode())
+            {
+                StopLockTask();
+                FinishAndRemoveTask();
+                MoveTaskToBack(true);
+            }
             base.OnPause();
         }
 
-        protected override void OnRestart()
+
+        public bool isAppInLockTaskMode()
         {
-            base.OnRestart();
-            SetViewFullScreen();
+            ActivityManager activityManager;
+
+            activityManager = (ActivityManager)
+                GetSystemService(Context.ActivityService);
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+            {
+                // For SDK version 23 and above.
+                return activityManager.LockTaskModeState
+                    != LockTaskMode.None;
+            }
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+            {
+                // When SDK version >= 21. This API is deprecated in 23.
+                return activityManager.IsInLockTaskMode;
+            }
+
+            return false;
         }
-    }    
+    }
 }
 
