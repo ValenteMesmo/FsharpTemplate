@@ -23,9 +23,14 @@ namespace Echo.Android
         {
             base.OnCreate(bundle);
             game = new Game1(new ContentLoader(Assets), true);
-            //SetViewFullScreen();
+            SetViewFullScreen();
 
             game.Run();
+        }
+
+        public override void OnBackPressed()
+        {
+            MoveTaskToBack(true);
         }
 
         private void SetViewFullScreen()
@@ -52,19 +57,21 @@ namespace Echo.Android
             base.OnResume();
             SetViewFullScreen();
             if (!isAppInLockTaskMode())
+            {
                 //21
                 StartLockTask();
+            }
         }
 
         protected override void OnPause()
         {
+            base.OnPause();
             if (isAppInLockTaskMode())
             {
                 StopLockTask();
                 FinishAndRemoveTask();
-                MoveTaskToBack(true);
+                //MoveTaskToBack(true);
             }
-            base.OnPause();
         }
 
 
@@ -85,7 +92,9 @@ namespace Echo.Android
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
                 // When SDK version >= 21. This API is deprecated in 23.
+#pragma warning disable CS0618 // Type or member is obsolete
                 return activityManager.IsInLockTaskMode;
+#pragma warning restore CS0618 // Type or member is obsolete
             }
 
             return false;
