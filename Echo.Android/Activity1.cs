@@ -49,6 +49,8 @@ namespace Echo.Android
             if (Build.VERSION.SdkInt >= BuildVersionCodes.P)
                 Window.Attributes.LayoutInDisplayCutoutMode = LayoutInDisplayCutoutMode.ShortEdges;
 
+            Window.AddFlags(WindowManagerFlags.KeepScreenOn);
+
             SetContentView(view);
         }
 
@@ -69,8 +71,7 @@ namespace Echo.Android
             if (isAppInLockTaskMode())
             {
                 StopLockTask();
-                FinishAndRemoveTask();
-                //MoveTaskToBack(true);
+                MoveTaskToBack(true);
             }
         }
 
@@ -98,6 +99,11 @@ namespace Echo.Android
             }
 
             return false;
+        }
+        protected override void OnDestroy()
+        {
+            StopLockTask();
+            base.OnDestroy();
         }
     }
 }
