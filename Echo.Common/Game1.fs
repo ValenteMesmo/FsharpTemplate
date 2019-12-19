@@ -74,8 +74,9 @@ type Game1 (contextLoader : IContentLoader, RuningOnAndroid: bool) as this =
         world.GetObjects() 
         |> Seq.iter (fun f ->
             spriteBatch.Draw(
-                textures.["Block"]
+                textures.["Balloon"]
                 , Rectangle(f.X, f.Y, f.Width, f.Height)
+                , System.Nullable <| Rectangle(0,0,64,93)
                 , Color.White
             ))
 

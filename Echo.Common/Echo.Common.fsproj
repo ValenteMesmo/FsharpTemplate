@@ -5,15 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="GameConstants.fs" />
-    <Compile Include="FramerateCounter.fs" />
-    <Compile Include="Camera.fs" />
-    <Compile Include="TouchController.fs" />
+    <Content Include="Content\Textures\Balloon.png" />
     <Content Include="Content\Textures\Block.bmp" />
     <None Include="Content\Content.Android.mgcb" />
     <None Include="Content\Content.Desktop.mgcb">
       <Visible>true</Visible>
     </None>
+    <Compile Include="GameConstants.fs" />
+    <Compile Include="FramerateCounter.fs" />
+    <Compile Include="Camera.fs" />
+    <Compile Include="TouchController.fs" />
     <Compile Include="GameObject.fs" />
     <Compile Include="World.fs" />
     <Compile Include="IContentLoader.fs" />
