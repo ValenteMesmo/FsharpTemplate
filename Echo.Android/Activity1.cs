@@ -50,6 +50,8 @@ namespace Echo.Android
                 Window.Attributes.LayoutInDisplayCutoutMode = LayoutInDisplayCutoutMode.ShortEdges;
 
             Window.AddFlags(WindowManagerFlags.KeepScreenOn);
+            Window.AddFlags(WindowManagerFlags.Secure);
+            Window.AddFlags(WindowManagerFlags.Fullscreen);
 
             SetContentView(view);
         }
@@ -60,7 +62,7 @@ namespace Echo.Android
             SetViewFullScreen();
             if (!isAppInLockTaskMode())
             {
-                //21
+                //For SDK version 21
                 StartLockTask();
             }
         }
