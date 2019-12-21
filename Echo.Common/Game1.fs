@@ -18,9 +18,7 @@ type Game1 (contextLoader : IContentLoader, RuningOnAndroid: bool) as this =
 
     do
         camera.Position <- Vector2(1179.0f, 0.0f)
-        let balloonFactory = BalloonFactory.Create(world.AddObject, touchCollection.GetTouches)
-        balloonFactory.Y <- -50
-        world.AddObject(balloonFactory)
+
         this.Content.RootDirectory <- "Content"
         this.IsMouseVisible <- true
 
@@ -43,6 +41,14 @@ type Game1 (contextLoader : IContentLoader, RuningOnAndroid: bool) as this =
         spriteBatch <- new SpriteBatch(this.GraphicsDevice)
         textures <- contextLoader.LoadTextures(this.Content)
         font <- this.Content.Load<SpriteFont>("Font")
+
+        
+        let getTexture name = 
+            textures.[name]
+
+        let balloonFactory = BalloonFactory.Create(world.AddObject, getTexture, touchCollection.GetTouches)
+        balloonFactory.Y <- -50
+        world.AddObject(balloonFactory)
  
     override this.Update(gameTime) =
         if
@@ -71,14 +77,20 @@ type Game1 (contextLoader : IContentLoader, RuningOnAndroid: bool) as this =
             camera.Transform
         )
 
-        world.GetObjects() 
-        |> Seq.iter (fun f ->
+        let renderSprites (spriteData : SpriteData)= 
             spriteBatch.Draw(
-                textures.["Balloon"]
-                , Rectangle(f.X, f.Y, f.Width, f.Height)
-                , System.Nullable <| Rectangle(0,0,64,93)
+                spriteData.Texture
+                , spriteData.TargetRectangle
+                , spriteData.SourceRectangle
                 , Color.White
-            ))
+            )
+
+        let renderObjectSprites (obj : GameObject) =
+            obj.GetSprites()
+            |> Seq.iter renderSprites
+
+        world.GetObjects() 
+        |> Seq.iter renderObjectSprites
 
         spriteBatch.End()
         
